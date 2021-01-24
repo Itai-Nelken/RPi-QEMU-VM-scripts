@@ -35,12 +35,16 @@ fi
 
 if ! which cowsay > /dev/null; then
    sudo apt install cowsay -y
+   cowsay=1
 elif ! which figlet > /dev/null; then
   sudo apt install figlet -y
+  figlet=1
 elif ! which lolcat > /dev/null; then
   sudo apt install lolcat -y
+  lolcat=1
 elif ! which aria2c > /dev/null; then
    sudo apt install -y aria2
+   aria2=1
 else
     echo "fun dependencies are already installed..."
 fi
@@ -85,6 +89,16 @@ Path=$HOME/win98
 Terminal=false
 StartupNotify=true" > ~/Desktop/win98.desktop
 sudo chmod +x ~/Desktop/win98.desktop
+
+if [[ "$cowsay=1" == 1 ]]; then
+  echo "installed" > ~/win98/cowsay-installed
+elif [[ "$figlet" == 1 ]]; then
+  echo "installed" > ~/win98/figlet-installed
+elif [[ "$lolcat" == 1 ]]; then
+  echo "installed" > ~/win98/lolcat-installed
+elif [[ "$aria2" == 1 ]]; then
+  echo "installed" > ~/win98/aria2-installed
+fi
 
 # isnt it goot to delete unnecessary files and free up some space?
 cowsay I\'m clearing all unnecessary files | lolcat
