@@ -11,6 +11,10 @@
 ```bash
 wget -qO- https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/MacOS9.2/qemu-macos9.sh | bash
 ```
+**How to remove:** simply run the following in terminal:
+```bash
+wget -qO- https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/MacOS9.2/remove-qemu-macos9.sh | bash
+```
 
 **How to run:** from the Desktop shortcut or follow the instructions bellow:
   1) type the following in terminal to change to the VM folder (directory):
@@ -45,6 +49,8 @@ put your script in here under the category using the following template:
 **Website:** (if applicable)<br>
   
 **How to install:**<br>
+
+**How to remove:**<br>
   
 **How to run:**<br>
 -->
