@@ -28,7 +28,7 @@ esac
 
 #install qemu
 if [[ "$CONTINUE" == 1 ]]; then
-  echo -e "$(tput setaf 2)$(tput bold)installing them...$(tput sgr 0)";;
+  echo -e "$(tput setaf 2)$(tput bold)installing them...$(tput sgr 0)"
 elif [[ "$CONTINUE" == 0 ]]; then
   echo " exiting.."; sleep 1; exit
 fi
