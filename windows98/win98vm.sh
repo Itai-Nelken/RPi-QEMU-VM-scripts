@@ -21,8 +21,8 @@ fi
 # ask for some cool things
 read -p "To make install experience more fun we will install figlet, cowsay, lolcat... (y/n)?" choice
 case "$choice" in 
-  y|Y ) CONTINUE=1;;
-  n|N ) CONTINUE=0;;
+  y|Y ) CONTINUE=1 ;;
+  n|N ) CONTINUE=0 ;;
   * ) echo "that is a invalid option my friend";;
 esac
 
