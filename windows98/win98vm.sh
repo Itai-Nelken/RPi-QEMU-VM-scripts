@@ -3,7 +3,7 @@
 # make everything clean
 clear
 
-#ebter home folder
+#enter home folder
 cd $HOME
 
 #determine if host system is 64 bit arm64 or 32 bit armhf
@@ -19,13 +19,20 @@ fi
 
 
 # ask for some cool things
-echo "To make install experience more fun we will install figlet, cowsaw, lolcat..."
-read -p "Do you want to proceed (y/n)?" fun
-case "$fun" in 
-  y|Y ) echo -e "$(tput setaf 2)$(tput bold)installing them...$(tput sgr 0)";;
-  n|N ) echo " exiting.."; sleep 1; exit;;
-  * ) echo "that is a invalid option my friend"; sleep 1; exit;;
+read -p "To make install experience more fun we will install figlet, cowsay, lolcat... (y/n)?" choice
+case "$choice" in 
+  y|Y ) CONTINUE=1;;
+  n|N ) CONTINUE=0;;
+  * ) echo "that is a invalid option my friend";;
 esac
+
+#install qemu
+if [[ "$CONTINUE" == 1 ]]; then
+  echo -e "$(tput setaf 2)$(tput bold)installing them...$(tput sgr 0)";;
+elif [[ "$CONTINUE" == 0 ]]; then
+  echo " exiting.."; sleep 1; exit
+fi
+
 if ! which cowsay > /dev/null; then
    sudo apt install cowsay -y
 elif ! which figlet > /dev/null; then
@@ -37,7 +44,8 @@ elif ! which aria2c > /dev/null; then
 else
     echo "fun dependencies are already installed..."
 fi
-sleep 2
+
+
 # lets clear the screen again. should we?
 clear
 
@@ -45,9 +53,9 @@ clear
 echo "this script will install and create a Windows 98 VM for you."
 read -p "Do you want to proceed (y/n)?" choice
 case "$choice" in 
-  y|Y ) cowsay oke! lets start the install now | lolcat;;
-  n|N ) cowsay OK exiting.. | lolcat; sleep 1; exit;;
-  * ) cowsay that is a invalid option my friend | lolcat; sleep 1; exit;;
+  y|Y ) cowsay oke! lets start the install now | lolcat ;;
+  n|N ) cowsay OK exiting.. | lolcat; sleep 1; exit ;;
+  * ) cowsay that is a invalid option my friend | lolcat ;;
 esac
 
 cowsay ok im installing dependencies | lolcat
