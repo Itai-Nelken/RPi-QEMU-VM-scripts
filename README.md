@@ -1,4 +1,5 @@
 # QEMU-VM-scripts
+![yay.png](screenshots/yay.png)
 
 ## All scripts:
 
