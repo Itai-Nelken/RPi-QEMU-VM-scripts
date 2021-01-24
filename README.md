@@ -10,11 +10,11 @@
   
 **How to install:** simply run the following in terminal:
 ```bash
-wget -qO- https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/MacOS9.2/qemu-macos9.sh | bash
+wget https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/MacOS9.2/qemu-macos9.sh; bash
 ```
 **How to remove:** simply run the following in terminal:
 ```bash
-wget -qO- https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/MacOS9.2/remove-qemu-macos9.sh | bash
+wget https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/MacOS9.2/remove-qemu-macos9.sh; bash
 ```
 
 **How to run:** from the Desktop shortcut or follow the instructions bellow:
