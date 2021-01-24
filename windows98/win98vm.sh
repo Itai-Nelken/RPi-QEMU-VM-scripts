@@ -62,7 +62,7 @@ cowsay ok im installing dependencies | lolcat
 
 # ah yes install qemu 
 aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu_5.2_armhf.deb
-sudo apt install --fix-broken ./qemu_5.2_armhf.deb
+sudo apt install --fix-broken -y ./qemu_5.2_armhf.deb
 
 # time to get the vm files now...
 cowsay okay.. the Dependencies are now installed... Downloading VM files... | lolcat
