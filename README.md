@@ -21,6 +21,21 @@ wget -qO- https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main
   ```bash
   qemu-system-ppc -M mac99 -m 1000 -cpu "g4" -L pc-bios -g 1024x768x32 -hda macos921.qcow2
   ```
+### Windows 98
+**How to install:** simply run the following in terminal:
+```bash
+wget -qO- https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/windows98/win98vm.sh | bash
+```
+
+**How to run:** from the Desktop shortcut or follow the instructions bellow:
+  1) type the following in terminal to change to the VM folder (directory):
+  ```bash
+  cd ~/win98
+  ```
+  2) type the following in terminal to start the VM:
+  ```bash
+  qemu-system-x86_64 -hda win98.qcow2
+  ```
 
 <!--
 anything inside here isn't visible.
