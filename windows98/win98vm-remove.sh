@@ -43,9 +43,9 @@ cd $HOME
 
 #variables
 cowsay="`cat ~/win98/cowsay-installed`"
-figlet="`~/win98/figlet-installed`"
-lolcat="`~/win98/lolcat-installed`"
-aria2="`~/win98/aria2-installed`"
+figlet="`cat ~/win98/figlet-installed`"
+lolcat="`cat ~/win98/lolcat-installed`"
+aria2="`cat ~/win98/aria2-installed`"
 
 if [[ "$cowsay" == installed ]]; then
     cowsayremove=1
