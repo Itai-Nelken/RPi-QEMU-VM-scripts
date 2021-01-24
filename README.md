@@ -29,11 +29,11 @@ wget -qO- https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main
 ### Windows 98
 **How to install:** simply run the following in terminal:
 ```bash
-wget -qO- https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/windows98/win98vm.sh | bash
+wget https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/windows98/win98vm.sh; bash win98vm.sh
 ```
 **How to remove:** simply run the following in terminal:
 ```bash
-wget -qO- https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/windows98/win98vm-remove.sh | bash
+wget https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/windows98/win98vm-remove.sh; bash win98vm-remove.sh
 ```
 
 **How to run:** from the Desktop shortcut or follow the instructions bellow:
