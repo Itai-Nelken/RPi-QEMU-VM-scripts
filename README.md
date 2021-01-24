@@ -59,3 +59,8 @@ put your script in here under the category using the following template:
   
 **How to run:**<br>
 -->
+
+## Screenshots
+![2QEMUVMS.png](screenshots/2QEMUVMS.png)
+![macos9-google.png](screenshots/macos9-google.png)
+![macos9-google.com.gif](screenshots/macos9-google.com.gif)
