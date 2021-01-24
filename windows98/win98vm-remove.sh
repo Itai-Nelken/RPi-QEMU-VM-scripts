@@ -67,7 +67,8 @@ if [[ "$cowsayremove" == 1 ]];then
     esac
     sleep 2
     clear
-elif [[ "$figletremove" == 1 ]];then 
+fi
+if [[ "$figletremove" == 1 ]];then 
     echo -e "$(tput setaf 6)figlet was installed by the VM install script$(tput sgr 0)"
     read -p "do you want to remove it (y/n)?" choice
     case "$choice" in 
@@ -77,7 +78,8 @@ elif [[ "$figletremove" == 1 ]];then
     esac
     sleep 2
     clear
-elif [[ "$lolcatremove" == 1 ]];then 
+fi
+if [[ "$lolcatremove" == 1 ]];then 
     echo -e "$(tput setaf 6)lolcat was installed by the VM install script$(tput sgr 0)"
     read -p "do you want to remove it (y/n)?" choice
     case "$choice" in 
@@ -87,7 +89,8 @@ elif [[ "$lolcatremove" == 1 ]];then
     esac
     sleep 2
     clear
-elif [[ "$aria2remove" == 1 ]];then 
+fi
+if [[ "$aria2remove" == 1 ]];then 
     echo -e "$(tput setaf 6)aria2 was installed by the VM install script$(tput sgr 0)"
     read -p "do you want to remove it (y/n)?" choice
     case "$choice" in 
