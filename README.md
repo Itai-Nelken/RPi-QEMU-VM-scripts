@@ -31,6 +31,10 @@ wget -qO- https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main
 ```bash
 wget -qO- https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/windows98/win98vm.sh | bash
 ```
+**How to remove:** simply run the following in terminal:
+```bash
+wget -qO- https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/windows98/win98vm-remove.sh | bash
+```
 
 **How to run:** from the Desktop shortcut or follow the instructions bellow:
   1) type the following in terminal to change to the VM folder (directory):
