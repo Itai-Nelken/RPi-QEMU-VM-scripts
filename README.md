@@ -3,7 +3,7 @@
 ## All scripts:
 
 ### MacOS 9.2.1
-**NOTES:**<br>don't use this VM if you have less than 2gb of RAM, to run it with less RAM, edit the desktop shortcut command from `-m 1000` to `-m <amont of ram in mb>`
+**NOTES:**<br>don't use this VM if you have less than 2gb of RAM, to run it with less RAM, edit the following text in the desktop shortcut from `-m 1000` to `-m <amount of ram in mb>`
 
  **Website:** [my archive.org page for it](https://archive.org/details/macos_921_qemu_rpi)<br>
   
