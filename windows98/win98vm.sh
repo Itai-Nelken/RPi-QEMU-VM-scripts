@@ -108,7 +108,4 @@ sleep 3
 clear
 # we have done everything!!! cheers!!!
 figlet Yay Everything is Complete! | lolcat
-echo exiting in 10 seconds..
-sleep 10
-exit
 rm win98vm.sh
