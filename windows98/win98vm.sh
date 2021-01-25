@@ -65,8 +65,8 @@ esac
 cowsay ok im installing dependencies | lolcat
 
 # ah yes install qemu 
-aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu_5.2_armhf.deb
-sudo apt install --fix-broken -y ./qemu_5.2_armhf.deb
+aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.50-armhf.deb
+sudo apt install --fix-broken -y ./qemu_5.2.50_armhf.deb
 
 # time to get the vm files now...
 cowsay okay.. the Dependencies are now installed... Downloading VM files... | lolcat
@@ -103,7 +103,7 @@ fi
 # isnt it goot to delete unnecessary files and free up some space?
 cowsay I\'m clearing all unnecessary files | lolcat
 rm ~/win98.tar.xz
-rm ~/qemu_5.2_armhf.deb
+rm ~/qemu_5.2.50_armhf.deb
 sleep 3
 clear
 # we have done everything!!! cheers!!!
