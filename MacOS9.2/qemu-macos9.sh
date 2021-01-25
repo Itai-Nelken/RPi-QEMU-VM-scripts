@@ -76,9 +76,9 @@ esac
 #install qemu
 if [[ "$CONTINUE" == 1 ]]; then
     echo -e "$(tput setaf 3)Downloading qemu...$(tput sgr 0)"
-    aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu_5.2_armhf.deb
+    aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.50-armhf.deb
     echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
-    sudo apt install --fix-broken -y ./qemu_5.2_armhf.deb
+    sudo apt install --fix-broken -y ./qemu-5.2.50-armhf.deb
 else
     echo -e "$(tput setaf 1)QEMU won't be installed, but beware!\nif its installed from 'apt' or not installed, this script will fail!$(tput sgr 0)"
 fi
@@ -111,7 +111,7 @@ fi
 
 echo -e "$(tput setaf 3)removing uneeded files...$(tput sgr 0)"
 rm ~/macos921.tar.xz
-rm ~/qemu_5.2_armhf.deb
+rm ~/qemu-5.2.50-armhf.deb
 echo -e "$(tput setaf 3)$(tput bold)DONE!$(tput sgr 0)"
 echo "exiting in 10 seconds"
 sleep 10
