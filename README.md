@@ -27,6 +27,8 @@ wget https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/MacO
   qemu-system-ppc -M mac99 -m 1000 -cpu "g4" -L pc-bios -g 1024x768x32 -hda macos921.qcow2
   ```
 ### Windows 98
+**NOTES:**<br>don't use this VM if you have less than 2gb of RAM, to run it with less RAM, edit the following text in the desktop shortcut from `-m 1000` to `-m <amount of ram in mb>`
+
 **How to install:** simply run the following in terminal:
 ```bash
 wget https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/windows98/win98vm.sh; bash win98vm.sh
