@@ -69,6 +69,4 @@ rm -r ~/macos921
 rm ~/Desktop/macos9.desktop
 
 echo -e "$(tput setaf 3)$(tput bold)DONE!$(tput sgr 0)"
-echo "exiting in 10 seconds"
-sleep 10
 rm remove-qemu-macos9.sh

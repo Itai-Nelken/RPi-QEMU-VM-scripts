@@ -114,6 +114,4 @@ rm -r ~/win98
 rm ~/Desktop/win98.desktop
 
 echo -e "$(tput setaf 3)$(tput bold)DONE!$(tput sgr 0)"
-echo "exiting in 10 seconds"
-sleep 10
 rm win98vm-remove.sh

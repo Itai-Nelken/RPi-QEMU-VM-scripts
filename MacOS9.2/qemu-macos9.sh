@@ -113,6 +113,4 @@ echo -e "$(tput setaf 3)removing uneeded files...$(tput sgr 0)"
 rm ~/macos921.tar.xz
 rm ~/qemu-5.2.50-armhf.deb
 echo -e "$(tput setaf 3)$(tput bold)DONE!$(tput sgr 0)"
-echo "exiting in 10 seconds"
-sleep 10
 rm qemu-macos9.sh
