@@ -28,6 +28,8 @@ wget https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/MacO
   ```bash
   qemu-system-ppc -M mac99 -m 1000 -cpu "g4" -L pc-bios -g 1024x768x32 -hda macos921.qcow2
   ```
+  if you have less than 2gb of RAM, edit the `-m 1000` to `-m <amount of ram in mb>`. example: to give the VM 128mb I would put `-m 128`.
+  
 ### Windows 98
 **NOTES:**<br>don't use this VM if you have less than 2gb of RAM, to run it with less RAM, edit the following text in the desktop shortcut from `-m 1000` to `-m <amount of ram in mb>`
 
@@ -49,6 +51,7 @@ wget https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/wind
   ```bash
   qemu-system-x86_64 -hda win98.qcow2
   ```
+  if you have less than 2gb of RAM, edit the `-m 1000` to `-m <amount of ram in mb>`. example: to give the VM 128mb I would put `-m 128`.
 
 <!--
 anything inside here isn't visible.
@@ -76,6 +79,11 @@ put your script in here under the category using the following template:
 
 
 ## Screenshots
+### MacOS 9.2.1 and Windows 98 VM's running at the same time
 ![2QEMUVMS.png](screenshots/2QEMUVMS.png)
+### Google.com in Internet Explorer 5 Macintosh Edition
+
 ![macos9-google.png](screenshots/macos9-google.png)
+### Trying to browse the Web in IE 5 Mac edition
+
 ![macos9-google.com.gif](screenshots/macos9-google.com.gif)
