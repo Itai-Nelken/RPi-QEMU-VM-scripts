@@ -6,6 +6,43 @@ clear
 #enter home folder
 cd $HOME
 
+# ask for some cool things
+read -p "To make install experience more fun we will install figlet, cowsay, lolcat... (y/n)?" choice
+case "$choice" in 
+  y|Y ) CONTINUE=1 ;;
+  n|N ) CONTINUE=0 ;;
+  * ) echo "that is a invalid option my friend";;
+esac
+if [[ "$CONTINUE" == 1 ]]; then
+  if ! which cowsay > /dev/null; then
+    sudo apt install cowsay -y
+    cowsay=1
+  else
+    cowsay "cowsay already installed..."
+  fi
+  if ! which figlet > /dev/null; then
+    sudo apt install figlet -y
+    figlet=1
+  else
+    figlet "figlet already installed..."
+  fi
+  if ! which lolcat > /dev/null; then
+    sudo apt install lolcat -y
+    lolcat=1
+  else
+    echo "lolcat already installed" | lolcat
+elif [[ "$CONTINUE" == 0 ]]; then
+  echo "script can't run!"
+  exit
+fi
+
+if ! which aria2c > /dev/null; then
+  sudo apt install -y aria2
+  aria2=1
+else
+  echo "aria2c already installed..."
+fi
+
 #determine if host system is 64 bit arm64 or 32 bit armhf
 if [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 64)" ];then
   figlet "This script can't run because your OS is 64bit!"
@@ -18,13 +55,6 @@ else
 fi
 
 
-# ask for some cool things
-read -p "To make install experience more fun we will install figlet, cowsay, lolcat... (y/n)?" choice
-case "$choice" in 
-  y|Y ) CONTINUE=1 ;;
-  n|N ) CONTINUE=0 ;;
-  * ) echo "that is a invalid option my friend";;
-esac
 
 #install qemu
 if [[ "$CONTINUE" == 1 ]]; then
@@ -32,23 +62,6 @@ if [[ "$CONTINUE" == 1 ]]; then
 elif [[ "$CONTINUE" == 0 ]]; then
   echo " exiting.."; sleep 1; exit
 fi
-
-if ! which cowsay > /dev/null; then
-   sudo apt install cowsay -y
-   cowsay=1
-elif ! which figlet > /dev/null; then
-  sudo apt install figlet -y
-  figlet=1
-elif ! which lolcat > /dev/null; then
-  sudo apt install lolcat -y
-  lolcat=1
-elif ! which aria2c > /dev/null; then
-   sudo apt install -y aria2
-   aria2=1
-else
-    echo "fun dependencies are already installed..."
-fi
-
 
 # lets clear the screen again. should we?
 clear
@@ -64,9 +77,23 @@ esac
 
 cowsay ok im installing dependencies | lolcat
 
-# ah yes install qemu 
-aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.50-armhf.deb
-sudo apt install --fix-broken -y ./qemu-5.2.50-armhf.deb
+#install qemu
+if [[ "$CONTINUE" == 1 ]]; then
+    echo -e "$(tput setaf 3)Downloading qemu...$(tput sgr 0)"
+    if [[ "$ARCH" == 32 ]]; then
+      aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.50-armhf.deb
+    elif [[ "$ARCH" == 64 ]]; then 
+      aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu_5.2.50-1_arm64.deb
+    fi
+    echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
+    if [[ "$ARCH" == 32 ]]; then
+      sudo apt install --fix-broken -y ./qemu-5.2.50-armhf.deb
+    elif [[ "$ARCH" == 64 ]]
+      sudo apt install --fix-broken -y ./qemu_5.2.50-1_arm64.deb
+    fi
+else
+    echo -e "$(tput setaf 1)QEMU won't be installed, but beware!\nif its installed from 'apt' or not installed, this script will fail!$(tput sgr 0)"
+fi
 
 # time to get the vm files now...
 cowsay okay.. the Dependencies are now installed... Downloading VM files... | lolcat

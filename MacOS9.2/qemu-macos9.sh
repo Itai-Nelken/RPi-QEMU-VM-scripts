@@ -38,10 +38,11 @@ echo -ne '\n'
 
 #determine if host system is 64 bit arm64 or 32 bit armhf
 if [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 64)" ];then
-  echo -e "$(tput setaf 1)$(tput bold)This script can't run because your OS is 64bit!$(tput sgr 0)"
-  exit
+  echo "OS is 64bit..."
+  ARCH=64
 elif [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 32)" ];then
   echo "OS is 32bit..."
+  ARCH=32
 else
   echo -e "$(tput setaf 1)$(tput bold)Can't detect OS architecture! something is very wrong!$(tput sgr 0)"
   exit
@@ -76,9 +77,17 @@ esac
 #install qemu
 if [[ "$CONTINUE" == 1 ]]; then
     echo -e "$(tput setaf 3)Downloading qemu...$(tput sgr 0)"
-    aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.50-armhf.deb
+    if [[ "$ARCH" == 32 ]]; then
+      aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.50-armhf.deb
+    elif [[ "$ARCH" == 64 ]]; then 
+      aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu_5.2.50-1_arm64.deb
+    fi
     echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
-    sudo apt install --fix-broken -y ./qemu-5.2.50-armhf.deb
+    if [[ "$ARCH" == 32 ]]; then
+      sudo apt install --fix-broken -y ./qemu-5.2.50-armhf.deb
+    elif [[ "$ARCH" == 64 ]]
+      sudo apt install --fix-broken -y ./qemu_5.2.50-1_arm64.deb
+    fi
 else
     echo -e "$(tput setaf 1)QEMU won't be installed, but beware!\nif its installed from 'apt' or not installed, this script will fail!$(tput sgr 0)"
 fi
