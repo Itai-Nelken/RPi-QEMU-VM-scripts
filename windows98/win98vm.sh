@@ -14,19 +14,19 @@ case "$choice" in
   * ) echo "that is a invalid option my friend";;
 esac
 if [[ "$CONTINUE" == 1 ]]; then
-  if ! which cowsay > /dev/null; then
+  if ! which cowsay &>/dev/null; then
     sudo apt install cowsay -y
     cowsay=1
   else
     cowsay "cowsay already installed..."
   fi
-  if ! which figlet > /dev/null; then
+  if ! which figlet &>/dev/null; then
     sudo apt install figlet -y
     figlet=1
   else
     figlet "figlet already installed..."
   fi
-  if ! which lolcat > /dev/null; then
+  if ! which lolcat &>/dev/null; then
     sudo apt install lolcat -y
     lolcat=1
   else
@@ -63,15 +63,22 @@ esac
 cowsay ok im installing dependencies | lolcat
 
 #install aria2c
-if ! which aria2c > /dev/null; then
+if ! which aria2c &>/dev/null; then
   sudo apt install -y aria2
   aria2=1
 else
   echo "aria2c already installed..."
 fi
 
+read -p "QEMU 5.2 will now be installed, do you want to continue (answering yes is recommended) (y/n)?" choice
+case "$choice" in 
+  y|Y ) CONTINUE1=1;;
+  n|N ) CONTINUE1=0;;
+  * ) echo "invalid";;
+esac
+
 #install qemu
-if [[ "$CONTINUE" == 1 ]]; then
+if [[ "$CONTINUE1" == 1 ]]; then
     echo -e "$(tput setaf 3)Downloading qemu...$(tput sgr 0)"
     if [[ "$ARCH" == 32 ]]; then
       aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.50-armhf.deb
@@ -84,8 +91,14 @@ if [[ "$CONTINUE" == 1 ]]; then
     elif [[ "$ARCH" == 64 ]]
       sudo apt install --fix-broken -y ./qemu_5.2.50-1_arm64.deb
     fi
+    QEMU=1
 else
-    echo -e "$(tput setaf 1)QEMU won't be installed, but beware!\nif its installed from 'apt' or not installed, this script will fail!$(tput sgr 0)"
+  if ! which qemu-system-x86_64 &>/dev/null; then
+    figlet "QEMU isn't installed! can't continue!"
+    exit
+  fi
+  echo -e "$(tput setaf 1)QEMU won't be installed, but beware!\nif its installed from 'apt' the VM's will malfunction!$(tput sgr 0)"
+  QEMU=0
 fi
 
 # time to get the vm files now...
@@ -118,6 +131,8 @@ elif [[ "$lolcat" == 1 ]]; then
   echo "installed" > ~/win98/lolcat-installed
 elif [[ "$aria2" == 1 ]]; then
   echo "installed" > ~/win98/aria2-installed
+elif [[ "$QEMU" == 1 ]]; then
+  echo "installed" > ~/win98/qemu-installed
 fi
 
 # isnt it goot to delete unnecessary files and free up some space?

@@ -88,8 +88,14 @@ if [[ "$CONTINUE" == 1 ]]; then
     elif [[ "$ARCH" == 64 ]]
       sudo apt install --fix-broken -y ./qemu_5.2.50-1_arm64.deb
     fi
+    QEMU=1
 else
-    echo -e "$(tput setaf 1)QEMU won't be installed, but beware!\nif its installed from 'apt' or not installed, this script will fail!$(tput sgr 0)"
+  if ! which qemu-system-ppc &>/dev/null; then
+    figlet "QEMU isn't installed! can't continue!"
+    exit
+  fi
+  echo -e "$(tput setaf 1)QEMU won't be installed, but beware!\nif its installed from 'apt' the VM's will malfunction!$(tput sgr 0)"
+  QEMU=0
 fi
 
 #make VM
@@ -116,6 +122,8 @@ sudo chmod +x ~/Desktop/macos9.desktop
 
 if [[ "$aria2" == 1 ]]; then
   echo "installed" > ~/macos921/aria2-installed
+elif [[ "$QEMU" == 1 ]]; then
+  echo "installed" > ~/macos921/qemu-installed
 fi
 
 echo -e "$(tput setaf 3)removing uneeded files...$(tput sgr 0)"

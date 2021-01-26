@@ -41,10 +41,13 @@ clear
 #enter home folder
 cd $HOME
 
-aria2="`cat ~/macos921/aria2-installed`"
+aria2="`cat ~/macos921/aria2-installed &>/dev/null`"
+qemu="`cat ~/macos921/qemu-installed &>/dev/null`"
 
 if [[ "$aria2" == installed ]]; then
     aria2remove=1
+elif [[ "$qemu" == installed ]]; then
+    qemuremove=1
 fi
 
 if [[ "$aria2remove" == 1 ]];then 
@@ -55,14 +58,15 @@ if [[ "$aria2remove" == 1 ]];then
         n|N ) echo "won't remove aria2" ;;
         * ) echo "invalid" ;;
     esac
+elif [[ "$qemuremove" == 1 ]]; then
+    echo -e "$(tput setaf 6)QEMU was installed by the VM install script$(tput sgr 0)"
+    read -p "do you want to remove it (y/n)?" choice
+    case "$choice" in 
+        y|Y ) sudo apt purge qemu -y ;;
+        n|N ) echo "won't remove qemu" ;;
+        * ) echo "invalid" ;;
+    esac    
 fi
-
-read -p "do you want to remove QEMU (y/n)?" choice
-case "$choice" in 
-    y|Y ) sudo apt purge qemu ;;
-    n|N ) echo "won't remove qemu" ;;
-    * ) echo "invalid" ;;
-esac
 
 echo -e "$(tput setaf 3)removing the files...$(tput sgr 0)"
 rm -r ~/macos921

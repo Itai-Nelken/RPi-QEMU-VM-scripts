@@ -3,7 +3,6 @@
 #############################################################################
 #script by Itai Nelken - https://github.com/Itai-Nelken                     #
 #---------------------------------------------------------------------------#
-#the files this script uses: https://archive.org/details/macos_921_qemu_rpi #
 #############################################################################
 
 #clear the screen
@@ -42,10 +41,11 @@ clear
 cd $HOME
 
 #variables
-cowsay="`cat ~/win98/cowsay-installed`"
-figlet="`cat ~/win98/figlet-installed`"
-lolcat="`cat ~/win98/lolcat-installed`"
-aria2="`cat ~/win98/aria2-installed`"
+cowsay="`cat ~/win98/cowsay-installed &>/dev/null`"
+figlet="`cat ~/win98/figlet-installed &>/dev/null`"
+lolcat="`cat ~/win98/lolcat-installed &>/dev/null`"
+aria2="`cat ~/win98/aria2-installed &>/dev/null`"
+qemu="`cat ~/win98/qemu-installed &>/dev/null`"
 
 if [[ "$cowsay" == installed ]]; then
     cowsayremove=1
@@ -55,6 +55,8 @@ elif [[ "$lolcat" == installed ]]; then
     lolcatremove=1
 elif [[ "$aria2" == installed ]]; then
     aria2remove=1
+elif [[ "$qemu" == installed ]]; then
+    qemuremove=1
 fi
 
 if [[ "$cowsayremove" == 1 ]];then 
@@ -101,13 +103,15 @@ if [[ "$aria2remove" == 1 ]];then
     sleep 2
     clear
 fi
-
-read -p "do you want to remove QEMU (y/n)?" choice
-case "$choice" in 
-    y|Y ) sudo apt purge qemu -y ;;
-    n|N ) echo "won't remove qemu" ;;
-    * ) echo "invalid" ;;
-esac
+if [[ "$qemuremove" == 1 ]]; then
+    echo -e "$(tput setaf 6)QEMU was installed by the VM install script$(tput sgr 0)"
+    read -p "do you want to remove it (y/n)?" choice
+    case "$choice" in 
+        y|Y ) sudo apt purge qemu -y ;;
+        n|N ) echo "won't remove qemu" ;;
+        * ) echo "invalid" ;;
+    esac    
+fi
 
 echo -e "$(tput setaf 3)removing the files...$(tput sgr 0)"
 rm -r ~/win98
