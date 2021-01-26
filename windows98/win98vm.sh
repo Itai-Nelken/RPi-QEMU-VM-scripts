@@ -36,13 +36,6 @@ elif [[ "$CONTINUE" == 0 ]]; then
   exit
 fi
 
-if ! which aria2c > /dev/null; then
-  sudo apt install -y aria2
-  aria2=1
-else
-  echo "aria2c already installed..."
-fi
-
 #determine if host system is 64 bit arm64 or 32 bit armhf
 if [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 64)" ];then
   figlet "This script can't run because your OS is 64bit!"
@@ -54,14 +47,6 @@ else
   exit
 fi
 
-
-
-#install qemu
-if [[ "$CONTINUE" == 1 ]]; then
-  echo -e "$(tput setaf 2)$(tput bold)installing them...$(tput sgr 0)"
-elif [[ "$CONTINUE" == 0 ]]; then
-  echo " exiting.."; sleep 1; exit
-fi
 
 # lets clear the screen again. should we?
 clear
@@ -76,6 +61,14 @@ case "$choice" in
 esac
 
 cowsay ok im installing dependencies | lolcat
+
+#install aria2c
+if ! which aria2c > /dev/null; then
+  sudo apt install -y aria2
+  aria2=1
+else
+  echo "aria2c already installed..."
+fi
 
 #install qemu
 if [[ "$CONTINUE" == 1 ]]; then
