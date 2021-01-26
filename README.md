@@ -64,6 +64,17 @@ put your script in here under the category using the following template:
 **How to run:**<br>
 -->
 
+## FAQ
+### Q = question<br>A = answer
+
+**Q:**
+>How do I get files into the VM's?
+
+**A:**
+> using the steps [here](FILES2VM.md).
+
+
+
 ## Screenshots
 ![2QEMUVMS.png](screenshots/2QEMUVMS.png)
 ![macos9-google.png](screenshots/macos9-google.png)
