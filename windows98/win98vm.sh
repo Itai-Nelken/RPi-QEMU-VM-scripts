@@ -21,7 +21,7 @@ if [[ "$CONTINUE" == 1 ]]; then
     cowsay "cowsay already installed..."
   fi
   if ! which figlet &>/dev/null; then
-    sudo apt install figlet -y
+   sudo apt install figlet -y
     figlet=1
   else
     figlet "figlet already installed..."
@@ -30,7 +30,8 @@ if [[ "$CONTINUE" == 1 ]]; then
     sudo apt install lolcat -y
     lolcat=1
   else
-    echo "lolcat already installed" | lolcat
+    lolcat already installed | lolcat
+  fi
 elif [[ "$CONTINUE" == 0 ]]; then
   echo "script can't run!"
   exit
@@ -38,17 +39,17 @@ fi
 
 #determine if host system is 64 bit arm64 or 32 bit armhf
 if [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 64)" ];then
-  figlet "This script can't run because your OS is 64bit!"
-  exit
+  figlet "OS is 64bit..."
+  ARCH=64
 elif [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 32)" ];then
   figlet "OS is 32bit..."
+  ARCH=32
 else
   figlet "Can't detect OS architecture! something is very wrong!"
   exit
 fi
 
-
-# lets clear the screen again. should we?
+sleep 3
 clear
 
 # there we start the installation
@@ -67,7 +68,7 @@ if ! which aria2c &>/dev/null; then
   sudo apt install -y aria2
   aria2=1
 else
-  echo "aria2c already installed..."
+  aria2c already installed...
 fi
 
 read -p "QEMU 5.2 will now be installed, do you want to continue (answering yes is recommended) (y/n)?" choice
@@ -82,16 +83,15 @@ if [[ "$CONTINUE1" == 1 ]]; then
     echo -e "$(tput setaf 3)Downloading qemu...$(tput sgr 0)"
     if [[ "$ARCH" == 32 ]]; then
       aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.50-armhf.deb
+      echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
+      sudo apt install --fix-broken -y ./qemu-5.2.50-armhf.deb
+      QEMU=1
     elif [[ "$ARCH" == 64 ]]; then 
       aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu_5.2.50-1_arm64.deb
-    fi
-    echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
-    if [[ "$ARCH" == 32 ]]; then
-      sudo apt install --fix-broken -y ./qemu-5.2.50-armhf.deb
-    elif [[ "$ARCH" == 64 ]]
+      echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
       sudo apt install --fix-broken -y ./qemu_5.2.50-1_arm64.deb
+      QEMU=1
     fi
-    QEMU=1
 else
   if ! which qemu-system-x86_64 &>/dev/null; then
     figlet "QEMU isn't installed! can't continue!"
@@ -100,6 +100,8 @@ else
   echo -e "$(tput setaf 1)QEMU won't be installed, but beware!\nif its installed from 'apt' the VM's will malfunction!$(tput sgr 0)"
   QEMU=0
 fi
+sleep 3
+clear
 
 # time to get the vm files now...
 cowsay okay.. the Dependencies are now installed... Downloading VM files... | lolcat
@@ -109,6 +111,10 @@ wget https://github.com/Itai-Nelken/RPi-QEMU-VM-scripts/raw/main/windows98/win98
 # extraction of the file is needed
 tar xf win98.tar.xz
 
+echo " "
+echo " "
+echo " "
+echo " "
 # desktop shortcuts are handy.. isnt it?
 cowsay Now i am Creating Desktop shortcut... | lolcat 
 echo "[Desktop Entry]
@@ -139,8 +145,8 @@ fi
 cowsay I\'m clearing all unnecessary files | lolcat
 rm ~/win98.tar.xz
 rm ~/qemu-5.2.50-armhf.deb
-sleep 3
 clear
+sleep 3
 # we have done everything!!! cheers!!!
 figlet Yay Everything is Complete! | lolcat
 rm win98vm.sh
