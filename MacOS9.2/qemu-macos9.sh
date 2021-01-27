@@ -54,6 +54,8 @@ fi
 
 #enter home folder
 cd $HOME
+sleep 0.5
+clear
 
 #install dependencies
 echo -e "$(tput setaf 3)Installing dependencies...$(tput sgr 0)"
@@ -79,16 +81,15 @@ if [[ "$CONTINUE" == 1 ]]; then
     echo -e "$(tput setaf 3)Downloading qemu...$(tput sgr 0)"
     if [[ "$ARCH" == 32 ]]; then
       aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.50-armhf.deb
+      echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
+      sudo apt install --fix-broken -y ./qemu-5.2.50-armhf.deb
+      QEMU=1
     elif [[ "$ARCH" == 64 ]]; then 
       aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu_5.2.50-1_arm64.deb
-    fi
-    echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
-    if [[ "$ARCH" == 32 ]]; then
-      sudo apt install --fix-broken -y ./qemu-5.2.50-armhf.deb
-    elif [[ "$ARCH" == 64 ]]
+      echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
       sudo apt install --fix-broken -y ./qemu_5.2.50-1_arm64.deb
+      QEMU=1
     fi
-    QEMU=1
 else
   if ! which qemu-system-ppc &>/dev/null; then
     figlet "QEMU isn't installed! can't continue!"
