@@ -38,8 +38,8 @@ fi
 
 #determine if host system is 64 bit arm64 or 32 bit armhf
 if [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 64)" ];then
-  figlet "This script can't run because your OS is 64bit!"
-  exit
+  figlet "OS is 64bit..."
+  ARCH=64
 elif [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 32)" ];then
   figlet "OS is 32bit..."
 else
