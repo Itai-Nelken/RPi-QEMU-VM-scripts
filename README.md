@@ -67,7 +67,7 @@ put your script in here under the category using the following template:
 **How to run:**<br>
 -->
 
-## FAQ
+# FAQ
 ### Q = question<br>A = answer
 
 **Q:**
