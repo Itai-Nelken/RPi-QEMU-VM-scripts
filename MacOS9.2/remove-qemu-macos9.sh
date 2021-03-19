@@ -7,15 +7,20 @@
 #############################################################################
 
 #clear the screen
-clear
+clear -x
 
 echo "this script will remove qemu 5.2 and MacOS 9.2 VM for you."
-read -p "Do you want to proceed (y/n)?" choice
-case "$choice" in 
-  y|Y ) echo -e "$(tput setaf 2)$(tput bold)LOADING...$(tput sgr 0)";;
-  n|N ) echo "exiting..."; sleep 1; exit;;
-  * ) echo "invalid";;
-esac
+while true; do
+  read -p "Do you want to proceed (y/n)?" choice
+  if [[ "$choice" =~ [yY] ]]; then
+    echo -e "$(tput setaf 2)$(tput bold)LOADING...$(tput sgr 0)"
+    break
+  elif [[ "$choice" =~ [nN] ]]; then
+    echo "exiting..."
+    sleep 1
+    exit 0
+  fi
+done
 
 #loading bar
 echo '  '
@@ -36,13 +41,13 @@ sleep 0.5
 echo -ne '\n'
 
 #clear the screen again
-clear
+clear -x
 
 #enter home folder
 cd $HOME
 
-aria2="`cat ~/macos921/aria2-installed &>/dev/null`"
-qemu="`cat ~/macos921/qemu-installed &>/dev/null`"
+aria2="$(cat ~/macos921/aria2-installed &>/dev/null)"
+qemu="$(cat ~/macos921/qemu-installed &>/dev/null)"
 
 if [[ "$aria2" == installed ]]; then
     aria2remove=1
@@ -52,20 +57,28 @@ fi
 
 if [[ "$aria2remove" == 1 ]];then 
     echo -e "$(tput setaf 6)aria2 was installed by the VM install script$(tput sgr 0)"
-    read -p "do you want to remove it (y/n)?" choice
-    case "$choice" in 
-        y|Y ) sudo apt purge aria2 ;;
-        n|N ) echo "won't remove aria2" ;;
-        * ) echo "invalid" ;;
-    esac
+    while true; do
+      read -p "do you want to remove it (y/n)?" choice
+      if [[ "$choice" =~ [yY] ]]; then
+        sudo apt purge -y aria2
+        break
+      elif [[ "$choice" =~ [nN] ]]; then
+        echo "won't remove aria2c"
+        break
+      fi
+    done
 elif [[ "$qemuremove" == 1 ]]; then
     echo -e "$(tput setaf 6)QEMU was installed by the VM install script$(tput sgr 0)"
-    read -p "do you want to remove it (y/n)?" choice
-    case "$choice" in 
-        y|Y ) sudo apt purge qemu -y ;;
-        n|N ) echo "won't remove qemu" ;;
-        * ) echo "invalid" ;;
-    esac    
+        while true; do
+      read -p "do you want to remove it (y/n)?" choice
+      if [[ "$choice" =~ [yY] ]]; then
+        sudo apt purge -y qemu
+        break
+      elif [[ "$choice" =~ [nN] ]]; then
+        echo "won't remove QEMU"
+        break
+      fi
+    done    
 fi
 
 echo -e "$(tput setaf 3)removing the files...$(tput sgr 0)"
