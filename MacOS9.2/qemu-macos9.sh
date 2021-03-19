@@ -45,6 +45,7 @@ echo -ne '\n'
 ARCH="$(uname -m)"
 if [[ "$ARCH" == "x86_64" ]] || [[ "$ARCH" == "amd64" ]] || [[ "$ARCH" == "x86" ]] || [[ "$ARCH" == "i386" ]]; then
     echo "ERROR: '$ARCH' is a unsupported arch!"
+    exit 1
 elif [[ "$ARCH" == "aarch64" ]] || [[ "$ARCH" == "arm64" ]] || [[ "$ARCH" == "armv7l" ]] || [[ "$ARCH" == "armhf" ]]; then
     if [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 64)" ];then
         echo "OS is 64bit..."
