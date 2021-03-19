@@ -6,16 +6,21 @@
 #the files this script uses: https://archive.org/details/macos_921_qemu_rpi #
 #############################################################################
 
-#clear the screen
-clear
+#clear the screen by scrolling up (equivalent of [CTRL+L])
+clear -x
 
 echo "this script will install qemu 5.2 and create a MacOS 9.2 VM for you."
-read -p "Do you want to proceed (y/n)?" choice
-case "$choice" in 
-  y|Y ) echo -e "$(tput setaf 2)$(tput bold)LOADING...$(tput sgr 0)" ;;
-  n|N ) echo "exiting..."; sleep 1; exit ;;
-  * ) echo "invalid" ;;
-esac
+while true; do
+  read -p "Do you want to proceed (y/n)?" choice
+  if [[ "$choice" =~ [yY] ]]; then
+    echo -e "$(tput setaf 2)$(tput bold)LOADING...$(tput sgr 0)"
+    break
+  elif [[ "$choice" =~ [nN] ]]; then
+    echo "exiting..."; sleep 1; exit 0
+  else
+    echo "invalid option '$choice', please try again."
+  fi
+done
 
 #loading bar
 echo '  '
@@ -37,15 +42,23 @@ echo -ne '\n'
 
 
 #determine if host system is 64 bit arm64 or 32 bit armhf
-if [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 64)" ];then
-  echo "OS is 64bit..."
-  ARCH=64
-elif [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 32)" ];then
-  echo "OS is 32bit..."
-  ARCH=32
+ARCH="$(uname -m)"
+if [[ "$ARCH" == "x86_64" ]] || [[ "$ARCH" == "amd64" ]] || [[ "$ARCH" == "x86" ]] || [[ "$ARCH" == "i386" ]]; then
+    echo "ERROR: '$ARCH' is a unsupported arch!"
+elif [[ "$ARCH" == "aarch64" ]] || [[ "$ARCH" == "arm64" ]] || [[ "$ARCH" == "armv7l" ]] || [[ "$ARCH" == "armhf" ]]; then
+    if [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 64)" ];then
+        echo "OS is 64bit..."
+        ARCH="64"
+    elif [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 32)" ];then
+        echo "OS is 32bit..."
+        ARCH="32"
+    else
+        echo -e "$(tput setaf 1)$(tput bold)Can't detect OS architecture! something is very wrong!$(tput sgr 0)"
+        exit 1
+    fi
 else
-  echo -e "$(tput setaf 1)$(tput bold)Can't detect OS architecture! something is very wrong!$(tput sgr 0)"
-  exit
+    echo -e "$(tput setaf 1)$(tput bold)ERROR: '$ARCH' isn't a supported architecture!$(tput sgr 0)"
+    exit 1
 fi
 
 #variables
@@ -54,8 +67,8 @@ fi
 
 #enter home folder
 cd $HOME
-sleep 0.5
-clear
+sleep 0.3
+clear -x
 
 #install dependencies
 echo -e "$(tput setaf 3)Installing dependencies...$(tput sgr 0)"
@@ -68,13 +81,18 @@ else
 fi
 
 
-
-read -p "QEMU 5.2 will now be installed, do you want to continue (answering yes is recommended) (y/n)?" choice
-case "$choice" in 
-  y|Y ) CONTINUE=1;;
-  n|N ) CONTINUE=0;;
-  * ) echo "invalid";;
-esac
+while true; do
+  read -p "QEMU 5.2.50 will now be installed, do you want to continue (answering yes is recommended) (y/n)?" choice
+  if [[ "$choice" =~ [yY] ]]; then
+    CONTINUE=1
+    break
+  elif [[ "$choice" =~ [nN] ]]; then
+    CONTINUE=0
+    break
+  else
+    echo "invalid answer '$choice', please try again."
+  fi
+done
 
 #install qemu
 if [[ "$CONTINUE" == 1 ]]; then
@@ -82,18 +100,18 @@ if [[ "$CONTINUE" == 1 ]]; then
     if [[ "$ARCH" == 32 ]]; then
       aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.50-armhf.deb
       echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
-      sudo apt install --fix-broken -y ./qemu-5.2.50-armhf.deb
+      sudo apt install -fy ./qemu-5.2.50-armhf.deb
       QEMU=1
     elif [[ "$ARCH" == 64 ]]; then 
       aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu_5.2.50-1_arm64.deb
       echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
-      sudo apt install --fix-broken -y ./qemu_5.2.50-1_arm64.deb
+      sudo apt install -fy ./qemu_5.2.50-1_arm64.deb
       QEMU=1
     fi
 else
   if ! which qemu-system-ppc &>/dev/null; then
-    figlet "QEMU isn't installed! can't continue!"
-    exit
+    echo -e "$(tput setaf 1)$(tput bold)QEMU (specifically 'qemu-system-ppc') isn't installed! can't continue!$(tput sgr 0)"
+    exit 1
   fi
   echo -e "$(tput setaf 1)QEMU won't be installed, but beware!\nif its installed from 'apt' the VM's will malfunction!$(tput sgr 0)"
   QEMU=0
@@ -131,4 +149,4 @@ echo -e "$(tput setaf 3)removing uneeded files...$(tput sgr 0)"
 rm ~/macos921.tar.xz
 rm ~/qemu-5.2.50-armhf.deb
 echo -e "$(tput setaf 3)$(tput bold)DONE!$(tput sgr 0)"
-rm qemu-macos9.sh
+rm qemu-macos9.sh &>/dev/null
