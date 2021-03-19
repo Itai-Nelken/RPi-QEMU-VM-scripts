@@ -88,3 +88,11 @@ put your script in here under the category using the following template:
 ### Trying to browse the Web in IE 5 Mac edition
 
 ![macos9-google.com.gif](screenshots/macos9-google.com.gif)
+### Actually browsing the web using [theoldnet](http://theoldnet.com/) (click the thumbnail to play the video)
+<a href="https://youtu.be/mPpQg8mEyz8">
+  <img src="screenshots/thumbnail.png" alt="'[DEMO] Browsing the web on MacOS 9.2 using theoldnet.com running in QEMU on a RaspberyPi 4' thumbnail">
+</a>
+
+<!--
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mPpQg8mEyz8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+-->
