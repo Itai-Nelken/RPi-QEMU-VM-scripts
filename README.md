@@ -1,4 +1,5 @@
 # QEMU-VM-scripts
+### DISCLAIMER: the software provided is for educational and historical purposes only!
 ![yay.png](screenshots/yay.png)
 
 # IMPORTANT NOTE: **ALWAYS** shut down the VM's properly (macos 9: finder>special button on the toolbar>shutdown. win98: start menu>shutdown>ok). not doing so will corrupt the OS!
