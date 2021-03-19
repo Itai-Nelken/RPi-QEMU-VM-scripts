@@ -1,18 +1,25 @@
 # !/bin/bash
 
 # make everything clean
-clear
+clear -x
 
 #enter home folder
 cd $HOME
 
 # ask for some cool things
-read -p "To make install experience more fun we will install figlet, cowsay, lolcat... (y/n)?" choice
-case "$choice" in 
-  y|Y ) CONTINUE=1 ;;
-  n|N ) CONTINUE=0 ;;
-  * ) echo "that is a invalid option my friend";;
-esac
+while true; do
+  read -p "To make the install experience more fun we will install figlet, cowsay, lolcat... (y/n)?" choice
+  if [[ "$choice" =~ [yY] ]]; then
+    CONTINUE=1
+    break
+  elif [[ "$choice" =~ [nN] ]]; then
+    CONTINUE=0
+    break
+  else
+    echo "'$choice' is a invalid option my friend... please try again."
+  fi
+done
+
 if [[ "$CONTINUE" == 1 ]]; then
   if ! which cowsay &>/dev/null; then
     sudo apt install cowsay -y
@@ -33,50 +40,73 @@ if [[ "$CONTINUE" == 1 ]]; then
     lolcat already installed | lolcat
   fi
 elif [[ "$CONTINUE" == 0 ]]; then
-  echo "script can't run!"
-  exit
+  echo "the script can't run without the dependencies!"
+  exit 1
 fi
 
 #determine if host system is 64 bit arm64 or 32 bit armhf
-if [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 64)" ];then
-  figlet "OS is 64bit..."
-  ARCH=64
-elif [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 32)" ];then
-  figlet "OS is 32bit..."
-  ARCH=32
+
+#determine if host system is 64 bit arm64 or 32 bit armhf
+ARCH="$(uname -m)"
+if [[ "$ARCH" == "x86_64" ]] || [[ "$ARCH" == "amd64" ]] || [[ "$ARCH" == "x86" ]] || [[ "$ARCH" == "i386" ]]; then
+    echo "ERROR: '$ARCH' is a unsupported arch!"
+    exit 1
+elif [[ "$ARCH" == "aarch64" ]] || [[ "$ARCH" == "arm64" ]] || [[ "$ARCH" == "armv7l" ]] || [[ "$ARCH" == "armhf" ]]; then
+    if [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 64)" ];then
+      figlet "OS is 64bit..."
+      ARCH=64
+    elif [ ! -z "$(file "$(readlink -f "/sbin/init")" | grep 32)" ];then
+        figlet "OS is 32bit..."
+        ARCH="32"
+    else
+        echo -e "$(tput setaf 1)$(tput bold)Can't detect OS architecture! something is very wrong!$(tput sgr 0)"
+        exit 1
+    fi
 else
-  figlet "Can't detect OS architecture! something is very wrong!"
-  exit
+    echo -e "$(tput setaf 1)$(tput bold)ERROR: '$ARCH' isn't a supported architecture!$(tput sgr 0)"
+    exit 1
 fi
 
-sleep 3
-clear
+sleep 2
+clear -x
 
 # there we start the installation
 echo "this script will install and create a Windows 98 VM for you."
-read -p "Do you want to proceed (y/n)?" choice
-case "$choice" in 
-  y|Y ) cowsay oke! lets start the install now | lolcat ;;
-  n|N ) cowsay OK exiting.. | lolcat; sleep 1; exit ;;
-  * ) cowsay that is a invalid option my friend | lolcat ;;
-esac
-
-cowsay ok im installing dependencies | lolcat
+while true; do
+  read -p "Do you want to proceed (y/n)?" choice
+  if [[ "$choice" =~ [yY] ]]; then
+    cowsay "oke! lets start the install now" | lolcat
+    break
+  elif [[ "$choice" =~ [nN] ]]; then
+    cowsay "OK exiting..." | lolcat
+    sleep 1
+    exit 0
+  else 
+    cowsay "'$choice' is a invalid option my friend | lolcat"
+  fi
+done
+cowsay "ok im installing dependencies" | lolcat
 
 #install aria2c
 if ! which aria2c &>/dev/null; then
   sudo apt install -y aria2
   aria2=1
 else
-  aria2c already installed...
+  figlet "aria2c already installed..."
 fi
 
-read -p "QEMU 5.2 will now be installed, do you want to continue (answering yes is recommended) (y/n)?" choice
-case "$choice" in 
-  y|Y ) CONTINUE1=1;;
-  n|N ) CONTINUE1=0;;
-  * ) echo "invalid";;
-esac
+while true; do
+  read -p "QEMU 5.2.50 will now be installed, do you want to continue (answering yes is recommended) (y/n)?" choice
+  if [[ "$choice" =~ [yY] ]]; then
+    CONTINUE=1
+    break
+  elif [[ "$choice" =~ [nN] ]]; then
+    CONTINUE=0
+    break
+  else
+    echo "'$choice' is a invalid option, please try again" | lolcat
+  fi
+done
 
 #install qemu
 if [[ "$CONTINUE1" == 1 ]]; then
@@ -89,22 +119,22 @@ if [[ "$CONTINUE1" == 1 ]]; then
     elif [[ "$ARCH" == 64 ]]; then 
       aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu_5.2.50-1_arm64.deb
       echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
-      sudo apt install --fix-broken -y ./qemu_5.2.50-1_arm64.deb
+      sudo apt install -fy ./qemu_5.2.50-1_arm64.deb
       QEMU=1
     fi
 else
   if ! which qemu-system-x86_64 &>/dev/null; then
-    figlet "QEMU isn't installed! can't continue!"
-    exit
+    figlet "QEMU (specifically 'qemu-system-x86_64') isn't installed! can't continue!"
+    exit 1
   fi
   echo -e "$(tput setaf 1)QEMU won't be installed, but beware!\nif its installed from 'apt' the VM's will malfunction!$(tput sgr 0)"
   QEMU=0
 fi
 sleep 3
-clear
+clear -x
 
 # time to get the vm files now...
-cowsay okay.. the Dependencies are now installed... Downloading VM files... | lolcat
+cowsay "okay.. the Dependencies are now installed... Downloading VM files..." | lolcat
 cd $HOME
 wget https://github.com/Itai-Nelken/RPi-QEMU-VM-scripts/raw/main/windows98/win98.tar.xz
 
@@ -116,7 +146,7 @@ echo " "
 echo " "
 echo " "
 # desktop shortcuts are handy.. isnt it?
-cowsay Now i am Creating Desktop shortcut... | lolcat 
+cowsay "Now i am Creating Desktop shortcut..." | lolcat 
 echo "[Desktop Entry]
 Version=1.0
 Type=Application
@@ -141,12 +171,12 @@ elif [[ "$QEMU" == 1 ]]; then
   echo "installed" > ~/win98/qemu-installed
 fi
 
-# isnt it goot to delete unnecessary files and free up some space?
+# isnt it good to delete unnecessary files and free up some space?
 cowsay I\'m clearing all unnecessary files | lolcat
 rm ~/win98.tar.xz
 rm ~/qemu-5.2.50-armhf.deb
-clear
+clear -x
 sleep 3
 # we have done everything!!! cheers!!!
-figlet Yay Everything is Complete! | lolcat
-rm win98vm.sh
+figlet "Yay Everything is Complete!" | lolcat
+rm win98vm.sh &>/dev/null
