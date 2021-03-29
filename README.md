@@ -27,7 +27,7 @@ wget https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/MacO
   ```
   2) type the following in terminal to start the VM:
   ```bash
-  qemu-system-ppc -M mac99 -m 1000 -cpu "g4" -L pc-bios -g 1024x768x32 -hda macos921.qcow2
+  qemu-system-ppc -M mac99 -m 1000 -cpu "g4" -L pc-bios -g 1024x768x32 -hda macos921.qcow2 -name "MacOS 9.2.1"
   ```
   if you have less than 2gb of RAM, edit the `-m 1000` to `-m <amount of ram in mb>`. example: to give the VM 128mb I would put `-m 128`.
   
@@ -50,7 +50,7 @@ wget https://raw.githubusercontent.com/Itai-Nelken/RPi-QEMU-VM-scripts/main/wind
   ```
   2) type the following in terminal to start the VM:
   ```bash
-  qemu-system-x86_64 -hda win98.qcow2
+  qemu-system-x86_64 -name "Windows 98" -hda win98.qcow2 -device sb16
   ```
   if you have less than 2gb of RAM, edit the `-m 1000` to `-m <amount of ram in mb>`. example: to give the VM 128mb I would put `-m 128`.
 
