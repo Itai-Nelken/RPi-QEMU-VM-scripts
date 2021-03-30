@@ -46,8 +46,8 @@ clear -x
 #enter home folder
 cd $HOME
 
-aria2="$(cat ~/macos921/aria2-installed &>/dev/null)"
-qemu="$(cat ~/macos921/qemu-installed &>/dev/null)"
+aria2="$(cat ~/macos921/aria2-installed)"
+qemu="$(cat ~/macos921/qemu-installed)"
 
 if [[ "$aria2" == installed ]]; then
     aria2remove=1
