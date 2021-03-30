@@ -172,10 +172,10 @@ fi
 
 # isnt it good to delete unnecessary files and free up some space?
 cowsay I\'m clearing all unnecessary files | lolcat
-rm ~/win98.tar.xz
-rm ~/qemu-5.2.50-armhf.deb
+rm -f ~/win98.tar.xz
+rm -f ~/qemu-5.2.90-armhf.deb
 clear -x
 sleep 3
 # we have done everything!!! cheers!!!
 figlet "Yay Everything is Complete!" | lolcat
-rm win98vm.sh &>/dev/null
+rm -f win98vm.sh &>/dev/null
