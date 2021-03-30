@@ -37,7 +37,7 @@ if [[ "$CONTINUE" == 1 ]]; then
     sudo apt install lolcat -y
     lolcat=1
   else
-    lolcat already installed | lolcat
+    echo "lolcat already installed" | lolcat
   fi
 elif [[ "$CONTINUE" == 0 ]]; then
   echo "the script can't run without the dependencies!"
@@ -112,9 +112,9 @@ done
 if [[ "$CONTINUE1" == 1 ]]; then
     echo -e "$(tput setaf 3)Downloading qemu...$(tput sgr 0)"
     if [[ "$ARCH" == 32 ]]; then
-      aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.50-armhf.deb
+      aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.90-armhf.deb
       echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
-      sudo apt install --fix-broken -y ./qemu-5.2.50-armhf.deb
+      sudo apt install --fix-broken -y ./qemu-5.2.90-armhf.deb
       QEMU=1
     elif [[ "$ARCH" == 64 ]]; then 
       aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu_5.2.50-1_arm64.deb
@@ -148,7 +148,6 @@ echo " "
 # desktop shortcuts are handy.. isnt it?
 cowsay "Now i am Creating Desktop shortcut..." | lolcat 
 echo "[Desktop Entry]
-Version=1.0
 Type=Application
 Name=Windows 98 
 Comment=WIndows 98 qemu VM
