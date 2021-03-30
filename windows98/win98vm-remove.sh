@@ -48,11 +48,11 @@ clear -x
 cd $HOME
 
 #variables
-cowsay="$(cat ~/win98/cowsay-installed &>/dev/null)"
-figlet="$(cat ~/win98/figlet-installed &>/dev/null)"
-lolcat="$(cat ~/win98/lolcat-installed &>/dev/null)"
-aria2="$(cat ~/win98/aria2-installed &>/dev/null)"
-qemu="$(cat ~/win98/qemu-installed &>/dev/null)"
+cowsay="$(cat ~/win98/cowsay-installed)"
+figlet="$(cat ~/win98/figlet-installed)"
+lolcat="$(cat ~/win98/lolcat-installed)"
+aria2="$(cat ~/win98/aria2-installed)"
+qemu="$(cat ~/win98/qemu-installed)"
 
 if [[ "$cowsay" == installed ]]; then
     cowsayremove=1
