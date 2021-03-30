@@ -83,7 +83,7 @@ fi
 
 
 while true; do
-  read -p "QEMU 5.2.50 will now be installed, do you want to continue (answering yes is recommended) (y/n)?" choice
+  read -p "QEMU 5.2.90 will now be installed, do you want to continue (answering yes is recommended) (y/n)?" choice
   if [[ "$choice" =~ [yY] ]]; then
     CONTINUE=1
     break
@@ -99,9 +99,9 @@ done
 if [[ "$CONTINUE" == 1 ]]; then
     echo -e "$(tput setaf 3)Downloading qemu...$(tput sgr 0)"
     if [[ "$ARCH" == 32 ]]; then
-      aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.50-armhf.deb
+      aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.90-armhf.deb
       echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
-      sudo apt install -fy ./qemu-5.2.50-armhf.deb
+      sudo apt install -fy ./qemu-5.2.90-armhf.deb
       QEMU=1
     elif [[ "$ARCH" == 64 ]]; then 
       aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu_5.2.50-1_arm64.deb
@@ -147,7 +147,7 @@ elif [[ "$QEMU" == 1 ]]; then
 fi
 
 echo -e "$(tput setaf 3)removing uneeded files...$(tput sgr 0)"
-rm ~/macos921.tar.xz
-rm ~/qemu-5.2.50-armhf.deb
+rm -f ~/macos921.tar.xz
+rm -f ~/qemu-5.2.90-armhf.deb
 echo -e "$(tput setaf 3)$(tput bold)DONE!$(tput sgr 0)"
-rm qemu-macos9.sh &>/dev/null
+rm -f qemu-macos9.sh &>/dev/null
