@@ -151,7 +151,7 @@ echo "[Desktop Entry]
 Type=Application
 Name=Windows 98 
 Comment=WIndows 98 qemu VM
-Exec=qemu-system-x86_64 -name "Windows 98" -hda win98.qcow2 -m 1000 -device sb16
+Exec=qemu-system-x86_64 -name \"Windows 98\" -hda win98.qcow2 -m 1000 -device sb16
 Icon=$HOME/win98/win98.png
 Path=$HOME/win98
 Terminal=false
