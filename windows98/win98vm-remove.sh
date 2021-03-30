@@ -136,7 +136,7 @@ if [[ "$qemuremove" == 1 ]]; then
     echo -e "$(tput setaf 6)QEMU was installed by the VM install script$(tput sgr 0)"
      while true; do
       read -p "do you want to remove it (y/n)?" choice
-      if [[ "$choice" =~ [yY]; then
+      if [[ "$choice" =~ [yY] ]]; then
         sudo apt purge qemu -y
         break
       elif [[ "$choice" =~ [nN] ]]; then
