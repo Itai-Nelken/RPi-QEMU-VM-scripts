@@ -87,7 +87,7 @@ if [[ "$figletremove" == 1 ]];then
     echo -e "$(tput setaf 6)figlet was installed by the VM install script$(tput sgr 0)"
     while true; do
       read -p "do you want to remove it (y/n)?" choice
-      if [[ "$choice" =~ [yY]; then
+      if [[ "$choice" =~ [yY] ]]; then
         sudo apt purge figlet -y
         break
       elif [[ "$choice" =~ [nN] ]]; then
@@ -104,7 +104,7 @@ if [[ "$lolcatremove" == 1 ]];then
     echo -e "$(tput setaf 6)lolcat was installed by the VM install script$(tput sgr 0)"
      while true; do
       read -p "do you want to remove it (y/n)?" choice
-      if [[ "$choice" =~ [yY]; then
+      if [[ "$choice" =~ [yY] ]]; then
         sudo apt purge lolcat -y
         break
       elif [[ "$choice" =~ [nN] ]]; then
@@ -119,7 +119,7 @@ if [[ "$aria2remove" == 1 ]];then
     echo -e "$(tput setaf 6)aria2 was installed by the VM install script$(tput sgr 0)"
     while true; do
       read -p "do you want to remove it (y/n)?" choice
-      if [[ "$choice" =~ [yY]; then
+      if [[ "$choice" =~ [yY] ]]; then
         sudo apt purge aria2 -y
         break
       elif [[ "$choice" =~ [nN] ]]; then
