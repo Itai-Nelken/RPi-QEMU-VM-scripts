@@ -96,7 +96,7 @@ else
 fi
 
 while true; do
-  read -p "QEMU 5.2.50 will now be installed, do you want to continue (answering yes is recommended) (y/n)?" choice
+  read -p "QEMU 5.2.90 will now be installed, do you want to continue (answering yes is recommended) (y/n)?" choice
   if [[ "$choice" =~ [yY] ]]; then
     CONTINUE=1
     break
