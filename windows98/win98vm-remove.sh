@@ -70,7 +70,7 @@ if [[ "$cowsayremove" == 1 ]];then
     echo -e "$(tput setaf 6)cowsay was installed by the VM install script$(tput sgr 0)"
     while true; do
       read -p "do you want to remove it (y/n)?" choice
-      if [[ "$choice" =~ [yY]; then
+      if [[ "$choice" =~ [yY] ]]; then
         sudo apt purge cowsay -y
         break
       elif [[ "$choice" =~ [nN] ]]; then
