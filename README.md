@@ -4,6 +4,8 @@
 
 # IMPORTANT NOTE: **ALWAYS** shut down the VM's properly (macos 9: finder>special button on the toolbar>shutdown. win98: start menu>shutdown>ok). not doing so will corrupt the OS!
 
+### Check the [FAQ](https://github.com/Itai-Nelken/RPi-QEMU-VM-scripts#FAQ) to learn how to pass files to the vm, change the resolutions, and more.
+
 ## All scripts:
 
 ### MacOS 9.2.1
@@ -76,6 +78,18 @@ put your script in here under the category using the following template:
 
 **A:**
 > using the steps [here](FILES2VM.md).
+
+**Q:**
+>How do I change the VM's resolution?
+
+**A:**
+>Use the OS's controls.
+>On win98: control panel>display,
+>on macos921: find the icon with something that looks like a screen with black pixels in it on the dock. click on it to see a list of resolutions.
+>
+>Just keep in mind that performance will be slightly worse on larger resolutions.
+>
+>To toggle full screen: ctrl+alt+f
 
 
 
