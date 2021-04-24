@@ -96,7 +96,7 @@ else
 fi
 
 while true; do
-  read -p "QEMU 5.2.90 will now be installed, do you want to continue (answering yes is recommended) (y/n)?" choice
+  read -p "QEMU 5.2.92 will now be installed, do you want to continue (answering yes is recommended) (y/n)?" choice
   if [[ "$choice" =~ [yY] ]]; then
     CONTINUE=1
     break
@@ -112,14 +112,14 @@ done
 if [[ "$CONTINUE1" == 1 ]]; then
     echo -e "$(tput setaf 3)Downloading qemu...$(tput sgr 0)"
     if [[ "$ARCH" == 32 ]]; then
-      aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.90-armhf.deb
+      aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.92-armhf.deb
       echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
-      sudo apt install --fix-broken -y ./qemu-5.2.90-armhf.deb
+      sudo apt install --fix-broken -y ./qemu-5.2.92-armhf.deb
       QEMU=1
     elif [[ "$ARCH" == 64 ]]; then 
-      aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu_5.2.50-1_arm64.deb
+      aria2c -x 16 https://archive.org/download/macos_921_qemu_rpi/qemu-5.2.94-arm64.deb
       echo -e "$(tput setaf 3)Installing qemu...$(tput sgr 0)"
-      sudo apt install -fy ./qemu_5.2.50-1_arm64.deb
+      sudo apt install -fy ./qemu-5.2.94-arm64.deb
       QEMU=1
     fi
 else
