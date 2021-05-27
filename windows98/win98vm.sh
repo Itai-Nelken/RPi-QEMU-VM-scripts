@@ -158,7 +158,7 @@ Terminal=false
 StartupNotify=true" > ~/Desktop/win98.desktop
 sudo chmod +x ~/Desktop/win98.desktop
 
-if [[ "$cowsay=1" == 1 ]]; then
+if [[ "$cowsay" == 1 ]]; then
   echo "installed" > ~/win98/cowsay-installed
 elif [[ "$figlet" == 1 ]]; then
   echo "installed" > ~/win98/figlet-installed
